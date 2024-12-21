@@ -5,4 +5,5 @@
             :url  "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.11.1"]]
   :repl-options {:init-ns aoc2024.core}
+  :plugins [[dev.weavejester/lein-cljfmt "0.13.0"]]
   :main aoc2024.core/-main)

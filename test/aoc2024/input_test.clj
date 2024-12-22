@@ -31,4 +31,10 @@
 
 (facts "parse-input"
        (fact "returns a vector"
-             (parse-input "") => vector?))
+             (parse-input "") => vector?)
+       (fact "returns one element for each line in the input"
+             (count (parse-input "foo\nbar")) => 2)
+       (fact "leaves non-numeric strings as strings"
+             (parse-input "foo bar \n bar barbaz") => [["foo", "bar"], ["bar", "barbaz"]])
+       (fact "converts numeric strings to longs"
+             (parse-input "foo 12 \n 23 barbaz") => [["foo", 12], [23, "barbaz"]]))

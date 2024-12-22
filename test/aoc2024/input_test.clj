@@ -30,5 +30,5 @@
              (numstr? " 12 ") => false))
 
 (facts "parse-input"
-       (fact "returns a fector"
+       (fact "returns a vector"
              (parse-input "") => vector?))

@@ -39,3 +39,19 @@
                          1 3 6 7 9
                          ")
              (solution-1 input) => 2))
+
+(facts "solution-2"
+       (fact "works correctly for example input"
+             (def input "7 6 4 2 1
+                         1 2 7 8 9
+                         9 7 6 2 1
+                         1 3 2 4 5
+                         8 6 4 4 1
+                         1 3 6 7 9
+                         ")
+             (solution-2 input) => 4))
+
+(facts "dampened-variations"
+       (fact "returns all variations"
+             (dampened-variations [1 2 3 4]) => [[2 3 4] [1 3 4] [1 2 4] [1 2 3]]
+             (dampened-variations [1 1 2 2]) => [[1 2 2] [1 2 2] [1 1 2] [1 1 2]]))

@@ -1,39 +1,34 @@
 (ns aoc2024.input-test
-  (:require [aoc2024.core :refer :all]
-            [aoc2024.input :refer :all]
-            [clojure.test :refer :all]))
+  (:use [aoc2024.input]
+        [midje.sweet]))
 
-(deftest lines-test
-  (testing "Should return lines of text"
-    (is (= ["foo" "bar"] (lines "foo\nbar"))))
+(facts "lines"
+       (fact "returns lines of text"
+             (lines "foo\nbar") => ["foo" "bar"])
 
-  (testing "Should handle trailing newline"
-    (is (= ["foo" "bar"] (lines "foo\nbar\n"))))
+       (fact "handles trailing newline"
+             (lines "foo\nbar\n") => ["foo" "bar"])
 
-  (testing "Should handle multiple extra newlines at either end"
-    (is (= ["foo" "bar"] (lines "\n\n\nfoo\nbar\n\n\n\n"))))
+       (fact "handles multiple extra newlines at either end"
+             (lines "\n\n\nfoo\nbar\n\n\n\n") => ["foo" "bar"])
 
-  (testing "Should remove leading and trailing space in lines"
-    (is (= ["foo" "bar"] (lines "   \n\n   \n  foo  \n bar  \n\n  \n\n")))))
+       (fact "removes leading and trailing space in lines"
+             (lines "   \n\n   \n  foo  \n bar  \n\n  \n\n") => ["foo" "bar"]))
 
-(deftest tokens-test
-  (testing "Should find tokens in string"
-    (is (= ["foo" "bar"] (tokens "  foo   bar  ")))))
+(facts "tokens"
+       (fact "finds tokens in string"
+             (tokens "  foo   bar  ") => ["foo" "bar"]))
 
-(deftest numstr?-test
-  (testing "Should return true when a string represents an integer"
-    (is (= true (numstr? "123"))))
-  (testing "Should return false when a string does not represent an integer"
-    (are [x] (= false (numstr? x))
-      "foo"
-      "1a2"
-      ""
-      " "
-      " 12 ")))
+(facts "numstr?"
+       (fact "returns true when a string represents an integer"
+             (numstr? "123") => true)
+       (fact "returns false when a string does not represent an integer"
+             (numstr? "foo") => false
+             (numstr? "1a2") => false
+             (numstr? "") => false
+             (numstr? " ") => false
+             (numstr? " 12 ") => false))
 
-(deftest parse-input-test
-  (testing "Should return a vector"
-    (is (= true (vector? (parse-input "")))))
-  (testing "Should return one element for each line in the input")
-  (testing "Should leave non-numeric strings as strings")
-  (testing "Should convert numeric strings to longs"))
+(facts "parse-input"
+       (fact "returns a fector"
+             (parse-input "") => vector?))

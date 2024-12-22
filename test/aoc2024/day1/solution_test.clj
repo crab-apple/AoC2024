@@ -48,3 +48,14 @@
 (facts "zip"
        (fact "zips vectors"
              (zip [[1 100] [300 3]]) => [[1 300] [100 3]]))
+
+(facts "solution-2"
+       (fact "works correctly for example input"
+             (def input "3 4
+                         4 3
+                         2 5
+                         1 3
+                         3 9
+                         3 3
+                         ")
+             (solution-2 input) => 31))

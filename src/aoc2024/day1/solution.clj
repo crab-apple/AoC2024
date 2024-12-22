@@ -19,3 +19,9 @@
 
 (defn solution-1 [input]
   (apply + (mapv linediff (sort-columns (in/parse-input input)))))
+
+(defn solution-2 [input]
+  (let [cols (zip (in/parse-input input))
+        freqs (frequencies (second cols))
+        score #(* %1 (or (get freqs %1) 0))]
+    (apply + (map score (first cols)))))

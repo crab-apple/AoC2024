@@ -4,10 +4,18 @@
 (defn- diff [a b]
   (abs (- b a)))
 
-(defn solution-1 [input]
-  (if
-   (> (count (in/parse-input input)) 2)
-    11
-    (let [[a b] (get (in/parse-input input) 0)]
-      (diff a b))))
+(defn- linediff [line]
+  (let [[a b] line]
+    (diff a b)))
 
+(defn zip [rows]
+  (apply map vector rows))
+
+(defn sort-rows [rows]
+  (mapv sort rows))
+
+(defn sort-columns [rows]
+  (zip (sort-rows (zip rows))))
+
+(defn solution-1 [input]
+  (apply + (mapv linediff (sort-columns (in/parse-input input)))))

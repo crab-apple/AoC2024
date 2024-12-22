@@ -1,5 +1,5 @@
-(ns aoc2024.day1.solution_test
-  (:use [aoc2024.day1.solution]
+(ns aoc2024.day01.solution_test
+  (:use [aoc2024.day01.solution]
         [midje.sweet]
         [clojure.test :as test]))
 

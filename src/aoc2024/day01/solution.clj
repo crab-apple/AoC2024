@@ -1,4 +1,4 @@
-(ns aoc2024.day1.solution
+(ns aoc2024.day01.solution
   (:require [aoc2024.input :as in]))
 
 (defn- diff [a b]

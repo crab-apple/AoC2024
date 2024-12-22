@@ -1,4 +1,4 @@
-(ns aoc2024.day2.solution
+(ns aoc2024.day02.solution
   (:require [aoc2024.input :as in]))
 
 (defn deltas [levels]

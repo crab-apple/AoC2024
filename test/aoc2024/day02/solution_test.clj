@@ -1,5 +1,5 @@
-(ns aoc2024.day2.solution_test
-  (:use [aoc2024.day2.solution]
+(ns aoc2024.day02.solution_test
+  (:use [aoc2024.day02.solution]
         [midje.sweet]))
 
 (facts "report-safety"

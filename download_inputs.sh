@@ -13,7 +13,7 @@ fi
 COOKIE="${!COOKIE_VAR}"
 
 for ((i=1; i<=FETCH_UNTIL_DAY; i++)); do
-  DIR="resources/day$i"
+  DIR=$(printf "resources/day%02d" "$i")
   FILE="$DIR/input"
 
   if [ ! -d "$DIR" ]; then

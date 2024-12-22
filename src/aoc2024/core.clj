@@ -1,8 +1,24 @@
-(ns aoc2024.core
+(ns aoc2024.core)
 
-  (:use
-   [aoc2024.day01.solution :as d1]))
+(defrecord Exercise [day num result])
 
+(defn run-exercise [day num]
+  (let [ns-name (format "aoc2024.day%02d.solution" day)
+        fn-name (format "solution-%d" num)
+        input-file (format "resources/day%02d/input" day)
+        fn (try (requiring-resolve (symbol (str ns-name "/" fn-name))) (catch Exception e nil))]
+    {:day    day
+     :num    num
+     :result (if (nil? fn) nil (fn (slurp input-file)))}))
+
+(defn run-all-exercises []
+  (flatten
+
+   (map (fn [day]
+          [(run-exercise day 1)
+           (run-exercise day 2)]) (range 1 26))))
+
+(defn explain-exercise [exercise]
+  (format "Day %02d-%d: %s" (:day exercise) (:num exercise) (or (:result exercise) "--TODO--")))
 (defn -main []
-  (println "Day 01-1: " (d1/solution-1 (slurp "resources/day01/input")))
-  (println "Day 01-2: " (d1/solution-2 (slurp "resources/day01/input"))))
+  (dorun (map println (map explain-exercise (run-all-exercises)))))

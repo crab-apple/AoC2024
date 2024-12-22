@@ -19,3 +19,8 @@
        (fact "works with input spread across multiple lines"
              (let [input "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)\n+mul(32,64]then(mul(11,8)mul(8,5))"]
                (solution-1 input) => 161)))
+
+(facts "solution-2"
+       (fact "works with the example input"
+             (let [input "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"]
+               (solution-2 input) => 48)))

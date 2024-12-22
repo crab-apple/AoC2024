@@ -14,13 +14,13 @@
 
 (defn report-is-safe [report]
   (and
-    (or (all-increasing report) (all-increasing (reverse report)))
-    (<= (max-step report) 3)))
+   (or (all-increasing report) (all-increasing (reverse report)))
+   (<= (max-step report) 3)))
 
 (defn dampened-variations [report]
   (map
-    (fn [i] (concat (subvec report 0 i) (subvec report (inc i))))
-    (range 0 (count report))))
+   (fn [i] (concat (subvec report 0 i) (subvec report (inc i))))
+   (range 0 (count report))))
 (defn report-is-safe-dampened [report]
   (some report-is-safe (dampened-variations report)))
 

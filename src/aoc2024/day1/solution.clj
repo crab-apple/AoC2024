@@ -11,7 +11,7 @@
   (mapv ints-in-line (in/lines input)))
 (defn solution-1 [input]
   (if
-    (> (count (as-int-rows input)) 2)
+   (> (count (as-int-rows input)) 2)
     11
     (let [[a b] (get (as-int-rows input) 0)]
       (diff a b))))

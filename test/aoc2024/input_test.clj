@@ -25,17 +25,15 @@
     (is (= true (numstr? "123"))))
   (testing "Should return false when a string does not represent an integer"
     (are [x] (= false (numstr? x))
-             "foo"
-             "1a2"
-             ""
-             " "
-             " 12 "
-             )))
+      "foo"
+      "1a2"
+      ""
+      " "
+      " 12 ")))
 
 (deftest parse-input-test
   (testing "Should return a vector"
     (is (= true (vector? (parse-input "")))))
   (testing "Should return one element for each line in the input")
   (testing "Should leave non-numeric strings as strings")
-  (testing "Should convert numeric strings to longs")
-  )
+  (testing "Should convert numeric strings to longs"))

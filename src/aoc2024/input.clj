@@ -15,3 +15,6 @@
 
 (defn parse-input [in]
   (mapv tokens (lines in)))
+
+(defn as-grid [in]
+  (mapv vec (lines in)))

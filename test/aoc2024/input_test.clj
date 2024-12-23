@@ -38,3 +38,12 @@
              (parse-input "foo bar \n bar barbaz") => [["foo", "bar"], ["bar", "barbaz"]])
        (fact "converts numeric strings to longs"
              (parse-input "foo 12 \n 23 barbaz") => [["foo", 12], [23, "barbaz"]]))
+
+(facts "as-grid"
+       (fact "returns a grid given a single line"
+             (as-grid "abc") => [[\a \b \c]])
+       (fact "returns a grid given multiple lines"
+             (as-grid "abc\ndef") => [[\a \b \c] [\d \e \f]])
+       (fact "the grid is made of vectors (not sequences)"
+             (as-grid "abc\ndef") => vector?
+             (get (as-grid "abc\ndef") 0) => vector?))

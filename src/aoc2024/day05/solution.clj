@@ -17,8 +17,8 @@
 
 (defn rule-applies [update rule]
   (and
-    (contains-page update (first rule))
-    (contains-page update (second rule))))
+   (contains-page update (first rule))
+   (contains-page update (second rule))))
 
 (defn- appliable-rules [update candidate-rules]
   (set (filter (partial rule-applies update) candidate-rules)))
@@ -42,6 +42,24 @@
 (defn solution-1 [input]
   (let [rules (:rules (parse-input input))
         updates (:updates (parse-input input))
-        valid-updates (filter (partial valid-update? rules) updates)
-        ]
+        valid-updates (filter (partial valid-update? rules) updates)]
     (apply + (map parse-long (map mid-value valid-updates)))))
+
+(defn correct-update [rules update]
+  (case (count update)
+    0 update
+    1 update
+    (let [rules (appliable-rules update rules)
+          pages (page-set update)
+          non-heads (set (map second rules))
+          possible-heads (apply disj pages non-heads)
+          head (first possible-heads)]
+      (cons head (correct-update rules (disj pages head))))))
+
+(defn solution-2 [input]
+  (let [rules (:rules (parse-input input))
+        updates (:updates (parse-input input))
+        invalid-updates (filter (complement (partial valid-update? rules)) updates)
+        corrected-updates (map (partial correct-update rules) invalid-updates)]
+    (apply + (map parse-long (map mid-value corrected-updates)))))
+

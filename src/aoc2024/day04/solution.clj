@@ -1,6 +1,7 @@
 (ns aoc2024.day04.solution
   (:require [aoc2024.grid :as gr]
             [aoc2024.input :as in]
+            [aoc2024.utils :as utils]
             [clojure.string :as str]))
 
 (defn- slice-across-rows-and-cols [grid]
@@ -35,3 +36,26 @@
   (let [count-xmas (partial count-substring-occurrences "XMAS")
         slices (soup-slice soup)]
     (apply + (map count-xmas slices))))
+
+(defn- x-mas? [grid point]
+  (and
+   (= (gr/grid-get grid (map + point)) \A)
+   (or
+    (and
+     (= (gr/grid-get grid (map + point [1 1])) \M)
+     (= (gr/grid-get grid (map + point [-1 -1])) \S))
+    (and
+     (= (gr/grid-get grid (map + point [1 1])) \S)
+     (= (gr/grid-get grid (map + point [-1 -1])) \M)))
+   (or
+    (and
+     (= (gr/grid-get grid (map + point [-1 1])) \M)
+     (= (gr/grid-get grid (map + point [1 -1])) \S))
+    (and
+     (= (gr/grid-get grid (map + point [-1 1])) \S)
+     (= (gr/grid-get grid (map + point [1 -1])) \M)))))
+
+(defn solution-2 [soup]
+  (let [grid (in/as-grid soup)
+        points (utils/cartesian (range 0 (gr/height grid)) (range 0 (gr/width grid)))]
+    (count (filter (partial x-mas? grid) points))))

@@ -66,4 +66,19 @@
                    "]
                (solution-1 input) => 18)))
 
-
+(facts "solution 2"
+       (fact "works for example input"
+             (let [input
+                   "
+                   MMMSXXMASM
+                   MSAMXMSMSA
+                   AMXSXMAAMM
+                   MSAMASMSMX
+                   XMASAMXAMM
+                   XXAMMXXAMA
+                   SMSMSASXSS
+                   SAXAMASAAA
+                   MAMMMXMMMM
+                   MXMXAXMASX
+                   "]
+               (solution-2 input) => 9)))

@@ -9,7 +9,9 @@
         fn (try (requiring-resolve (symbol (str ns-name "/" fn-name))) (catch Exception e nil))]
     {:day    day
      :num    num
-     :result (if (nil? fn) nil (fn (slurp input-file)))}))
+     :result (if (nil? fn) nil
+                 (last (doall [(printf "running %d-%d\n" day num)
+                               (time (fn (slurp input-file)))])))}))
 
 (defn run-all-exercises []
   (flatten

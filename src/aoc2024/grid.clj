@@ -1,4 +1,5 @@
-(ns aoc2024.grid)
+(ns aoc2024.grid
+  (:require [aoc2024.utils :as utils]))
 (defn in-grid [grid point]
   (and
    (not (neg? (first point)))
@@ -12,6 +13,12 @@
 (defn width [grid] (count (first grid)))
 
 (defn height [grid] (count grid))
+
+(defn- all-points [grid]
+  (utils/cartesian (range 0 (height grid)) (range 0 (width grid))))
+
+(defn as-point-map [grid]
+  (into {} (map #(vec [%1 (grid-get grid %1)]) (all-points grid))))
 
 (defn- vectorize [grid-as-seqs]
   (vec (map vec grid-as-seqs)))

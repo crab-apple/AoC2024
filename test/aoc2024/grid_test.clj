@@ -14,6 +14,16 @@
          (fact "returns the height"
                (height grid) => 3)))
 
+(facts "as-point-map"
+       (fact "works for square grids"
+             (as-point-map [[:a :b] [:c :c]]) => {[0 0] :a
+                                                  [0 1] :b
+                                                  [1 0] :c
+                                                  [1 1] :c})
+       (fact "works for non-square grids"
+             (as-point-map [[:a :b]]) => {[0 0] :a
+                                          [0 1] :b}))
+
 (facts "rotating"
        (let [grid [[1 2] [3 4] [5 6]]]
          (fact "rotates the grid clockwise"

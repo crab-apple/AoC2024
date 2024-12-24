@@ -3,10 +3,10 @@
         [midje.sweet]))
 
 (facts "parse"
-       (fact "parses size"
+       (fact "parses dimensions"
              (let [input "...
                           ..."]
-               (:size (parse input)) => {:height 2 :width 3}))
+               (:dimensions (parse input)) => [2 3]))
        (fact "parses obstacle positions"
              (let [input ".#.
                           ..#"]
@@ -41,3 +41,22 @@
              (display (parse "..>\n")) => "..>\n"
              (display (parse "..v\n")) => "..v\n"
              (display (parse "..<\n")) => "..<\n"))
+
+(facts "stepping"
+       (fact "remains unchanged is there is no guard"
+             (display (step (parse "...\n...\n...\n"))) => "...\n...\n...\n")
+       (fact "advances guard if there are no obstacles"
+             (display (step (parse "...\n.^.\n...\n"))) => ".^.\n...\n...\n"
+             (display (step (parse "...\n.>.\n...\n"))) => "...\n..>\n...\n"
+             (display (step (parse "...\n.v.\n...\n"))) => "...\n...\n.v.\n"
+             (display (step (parse "...\n.<.\n...\n"))) => "...\n<..\n...\n")
+       (fact "guard disappears when it moves out of bounds"
+             (get-in (step (parse ".^.\n")) [:guard :position]) => nil
+             (get-in (step (parse ".v.\n")) [:guard :position]) => nil
+             (get-in (step (parse "<..\n")) [:guard :position]) => nil
+             (get-in (step (parse "..>\n")) [:guard :position]) => nil)
+       (fact "guard turns right when it encounters an obstacle"
+             (display (step (parse ".#.\n.^.\n"))) => ".#.\n.>.\n"
+             (display (step (parse ".v.\n.#.\n"))) => ".<.\n.#.\n"
+             (display (step (parse ".>#\n"))) => ".v#\n"
+             (display (step (parse "#<.\n"))) => "#^.\n"))

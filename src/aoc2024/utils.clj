@@ -17,3 +17,10 @@
                            (apply juxt appenders))]
       (apply concat (map juxt-appenders (first seqs))))))
 
+(defn in-rectangle? [rectangle-dimensions position]
+  (and
+   ()
+   (>= (first position) 0)
+   (< (first position) (first rectangle-dimensions))
+   (>= (second position) 0)
+   (< (second position) (second rectangle-dimensions))))

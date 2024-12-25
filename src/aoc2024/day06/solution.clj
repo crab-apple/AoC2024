@@ -76,10 +76,12 @@
 (defn- has-guard [lab]
   (not (nil? (get-in lab [:guard :position]))))
 
-(defn- step-till-end [lab]
-  (if (has-guard lab)
-    (conj (step-till-end (step lab)) lab)
-    '()))
+(defn- step-till-end [initial-lab]
+  (loop [lab initial-lab
+         visited-labs '()]
+    (if (has-guard lab)
+      (recur (step lab) (conj visited-labs lab))
+      visited-labs)))
 
 (defn solution-1 [input]
   (let [initial-lab (parse input)

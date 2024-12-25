@@ -18,6 +18,24 @@
              (valid-update? [[1 2]] [3 2 1]) => false
              (valid-update? [[1 2]] [2 3 1]) => false))
 
+(facts "from-old-ruleset"
+       (fact "empty"
+             (from-old-ruleset []) => {:from-left {} :from-right {}})
+       (fact "one rule"
+             (from-old-ruleset [[:a :b]]) => {:from-left {:a #{:b}} :from-right {:b #{:a}}})
+       (fact "non overlapping rules"
+             (from-old-ruleset [[:a :b] [:c :d]]) => {:from-left {:a #{:b} :c #{:d}} :from-right {:b #{:a} :d #{:c}}})
+       (fact "non overlapping rules"
+             (from-old-ruleset [[:a :b] [:a :d]]) => {:from-left {:a #{:b :d}} :from-right {:b #{:a} :d #{:a}}}))
+
+(facts "to-old-ruleset"
+       (fact "empty"
+             (to-old-ruleset {:from-left {} :from-right nil}) => [])
+       (fact "empty sets"
+             (to-old-ruleset {:from-left {:a #{}} :from-right nil}) => [])
+       (fact "not empty"
+             (to-old-ruleset {:from-left {:a #{:b :c} :d #{:e}} :from-right nil}) => [[:a :c] [:a :b] [:d :e]]))
+
 (facts "solution-1"
        (fact "works for example input"
              (let [input "

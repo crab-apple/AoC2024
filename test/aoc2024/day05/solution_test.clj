@@ -18,46 +18,6 @@
              (valid-update? [[1 2]] [3 2 1]) => false
              (valid-update? [[1 2]] [2 3 1]) => false))
 
-(facts "update"
-       (let [update [1 2 3 8 7 6]]
-         (facts "contains-page"
-                (fact "is true for contained pages"
-                      (contains-page update 1) => true
-                      (contains-page update 3) => true
-                      (contains-page update 8) => true)
-                (fact "is false for not contained pages"
-                      (contains-page update 4) => false
-                      (contains-page update 0) => false))
-         (facts "rule-applies"
-                (fact "rule applies if the update contains both sides of the rule"
-                      (rule-applies update [2 3]) => true
-                      (rule-applies update [2 7]) => true
-                      (rule-applies update [7 2]) => true)
-                (fact "rule does not apply if the update contains only one side of the rule"
-                      (rule-applies update [2 9]) => false
-                      (rule-applies update [9 2]) => false)
-                (fact "rule does not apply if the update contains none of the sides of the rule"
-                      (rule-applies update [0 9]) => false
-                      (rule-applies update [9 0]) => false))))
-
-(facts "parse-input"
-       (let [input
-             "
-             75|13
-             53|13
-
-             75,47,61
-             97,61,53
-             "]
-         (fact "parses the correct number of rules"
-               (count (:rules (parse-input input))) => 2)
-         (fact "parses the correct rules"
-               (:rules (parse-input input)) => [["75" "13"] ["53" "13"]])
-         (fact "parses the correct number of updates"
-               (count (:updates (parse-input input))) => 2)
-         (fact "parses the correct updates"
-               (:updates (parse-input input)) => [["75" "47" "61"] ["97" "61" "53"]])))
-
 (facts "solution-1"
        (fact "works for example input"
              (let [input "

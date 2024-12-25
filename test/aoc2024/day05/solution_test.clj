@@ -28,13 +28,15 @@
        (fact "non overlapping rules"
              (from-old-ruleset [[:a :b] [:a :d]]) => {:from-left {:a #{:b :d}} :from-right {:b #{:a} :d #{:a}}}))
 
-(facts "to-old-ruleset"
-       (fact "empty"
-             (to-old-ruleset {:from-left {} :from-right nil}) => [])
-       (fact "empty sets"
-             (to-old-ruleset {:from-left {:a #{}} :from-right nil}) => [])
-       (fact "not empty"
-             (to-old-ruleset {:from-left {:a #{:b :c} :d #{:e}} :from-right nil}) => [[:a :c] [:a :b] [:d :e]]))
+(facts "remove pair"
+       (fact "set of one"
+             (remove-pair {:a #{:x} :b #{:x :y}} [:a :x]) => {:b #{:x :y}})
+       (fact "set of many"
+             (remove-pair {:a #{:x :y} :b #{:x :y}} [:a :x]) => {:a #{:y} :b #{:x :y}})
+       (fact "non-existing key "
+             (remove-pair {:a #{:b}} [:foo :b]) => {:a #{:b}})
+       (fact "non-existing value "
+             (remove-pair {:a #{:b}} [:a :foo]) => {:a #{:b}}))
 
 (facts "solution-1"
        (fact "works for example input"
@@ -88,7 +90,7 @@
                    75,97,47,61,53
                    "
                    parsed (parse-input input)]
-               (correct-update (:rules parsed) (first (:updates parsed))) => ["97" "75" "47" "61" "53"])))
+               (correct-update (:rules-old parsed) (first (:updates parsed))) => ["97" "75" "47" "61" "53"])))
 (facts "solution-2"
        (fact "works for example input"
              (let [input "

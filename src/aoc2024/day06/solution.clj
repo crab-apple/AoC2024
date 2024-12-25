@@ -72,3 +72,17 @@
       (nil? (front-of-guard)) (with-no-guard)
       (obstacle? (front-of-guard)) (rotate-guard)
       (in-bounds? (front-of-guard)) (move-guard (front-of-guard)))))
+
+(defn- has-guard [lab]
+  (not (nil? (get-in lab [:guard :position]))))
+
+(defn- step-till-end [lab]
+  (if (has-guard lab)
+    (conj (step-till-end (step lab)) lab)
+    '()))
+
+(defn solution-1 [input]
+  (let [initial-lab (parse input)
+        all-labs (step-till-end initial-lab)
+        guard-positions (set (map #(get-in %1 [:guard :position]) all-labs))]
+    (count guard-positions)))

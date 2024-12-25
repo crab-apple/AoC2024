@@ -60,3 +60,8 @@
              (display (step (parse ".v.\n.#.\n"))) => ".<.\n.#.\n"
              (display (step (parse ".>#\n"))) => ".v#\n"
              (display (step (parse "#<.\n"))) => "#^.\n"))
+
+(facts "solution 1"
+       (fact "works with the example input"
+             (let [input "....#.....\n.........#\n..........\n..#.......\n.......#..\n..........\n.#..^.....\n........#.\n#.........\n......#..."]
+               (solution-1 input) => 41)))
